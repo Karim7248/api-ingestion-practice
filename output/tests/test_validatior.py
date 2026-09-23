@@ -6,7 +6,7 @@ def test_valid_json_passes():
     valid_data = {
         "userId": 1,
         "id": 12,
-        "title": "Hello yo"
+        "title": "Hello yo",
         "completed": False
     }
 
