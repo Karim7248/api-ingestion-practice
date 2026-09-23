@@ -17,15 +17,15 @@ def fetch_todo(url: str) -> Dict[str, Any]:
         # This automatically checks for bad HTTP codes (like 404 Not Found or 500 Internal Server Error)
         response.raise_for_status()
         
-    except requests.exceptions.Timeout as e:
+    except requests.exceptions.Timeout:
         logger.error(f"Network failure: The request to {url} timed out.")
-        raise e
-    except requests.exceptions.HTTPError as e:
+        raise
+    except requests.exceptions.HTTPError:
         logger.error(f"HTTP failure: The server returned an error code. Details: {e}")
-        raise e
-    except requests.exceptions.RequestException as e:
+        raise
+    except requests.exceptions.RequestException:
         logger.error(f"Network failure: A connection error occurred. Details: {e}")
-        raise e
+        raise
 
     logger.info("Successfully received response from the API.")
     

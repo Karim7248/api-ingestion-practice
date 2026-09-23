@@ -13,7 +13,7 @@ def validate_todo(data: Dict[str, Any]) -> Dict[str, Any]:
     Raises ValidationError if validation fails.
     """
 
-    required_fields = ["user_Id", "id", "title", "completed"]
+    required_fields = ["userId", "id", "title", "completed"]
 
     for field in required_fields:
         if field not in data:
@@ -23,6 +23,19 @@ def validate_todo(data: Dict[str, Any]) -> Dict[str, Any]:
     if not isinstance(data["completed"], bool):
         logger.error(f"Validation failed: 'completed' field must be a boolean")
         raise ValidationError("'completed field must be a boolean" )
+
+    if not isinstance(data["userId"], int):
+            logger.error(f"Validation failed: 'userId' field must be a integer")
+            raise ValidationError(" userId field must be a integer" )
+
+    if not isinstance(data["id"], int):
+            logger.error(f"Validation failed: 'id' field must be a integer")
+            raise ValidationError("id field must be a integer" )
+
+    if not isinstance(data["title"], str):
+            logger.error(f"Validation failed: 'title' field must be a string")
+            raise ValidationError("title field must be a string" )
+    
 
     logger.info("JSON payload successfully validated.")
     return data

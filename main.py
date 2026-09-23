@@ -31,7 +31,7 @@ def main():
         os.makedirs(output_dir, exist_ok=True)
         
         # Open the file in 'write' mode and dump the JSON into it
-        with open(output_file, "w") as f:
+        with open(output_file, "w", encoding="utf-8") as f:
             json.dump(clean_data, f, indent=4)
             
         logger.info(f"Successfully saved clean JSON to {output_file}")
@@ -39,11 +39,16 @@ def main():
     # Catching specific errors from our modules
     except requests.exceptions.RequestException:
         logger.error("Ingestion failed: Could not retrieve data from the API.")
+        return 1
     except ValidationError:
         logger.error("Ingestion failed: The retrieved data was invalid.")
+        return 1
     except OSError as e:
         logger.error(f"Ingestion failed: Could not save the file to disk. Details: {e}")
+        return 1
+
+    return 0
 
 # This tells Python to only run main() if this file is executed directly
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
