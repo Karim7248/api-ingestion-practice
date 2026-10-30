@@ -44,3 +44,11 @@ api-ingestion-practice/
    ```bash
    pytest
    ```
+
+
+
+## Continuous Integration
+* **When it runs:** Automatically triggers on every push and pull request to the `main` branch.
+* **What it checks:** It provisions a fresh Ubuntu server, installs all dependencies from `requirements.txt`, and runs the `pytest` suite.
+* **Why mocked tests are used:** Mocking the external API ensures the CI pipeline is fast, deterministic, and immune to network issues or third-party outages.
+* **What a failure means:** A red run indicates either broken code, missing dependencies, or a failed test, which prevents unsafe code from being merged.
