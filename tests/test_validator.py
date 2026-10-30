@@ -7,7 +7,7 @@ def test_valid_json_passes():
         "userId": 1,
         "id": 12,
         "title": "Hello yo",
-        "completed": False
+        "completed": True
     }
 
     result = validate_todo(valid_data)
