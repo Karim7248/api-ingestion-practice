@@ -12,7 +12,7 @@ def test_valid_json_passes():
 
     result = validate_todo(valid_data)
 
-    assert result == "water"
+    assert result == valid_data
 
 def test_missing_required_field_fails():
     """Test that a title is removed from the fields"""
