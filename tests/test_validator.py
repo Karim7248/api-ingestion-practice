@@ -1,38 +1,48 @@
 import pytest
-from validator import validate_todo, ValidationError
+
+from validator import ValidationError, validate_todo
+
 
 def test_valid_json_passes():
-    """Test that a perfectly formed dictionary is returned as-is."""
     valid_data = {
         "userId": 1,
         "id": 12,
         "title": "Hello yo",
-        "completed": True
+        "completed": True,
     }
 
-    result = validate_todo(valid_data)
+    assert validate_todo(valid_data) == valid_data
 
-    assert result == valid_data
 
 def test_missing_required_field_fails():
-    """Test that a title is removed from the fields"""
     invalid_data = {
         "userId": 1,
         "id": 12,
-        #"title": "Hello yo"
-        "completed": False
+        "completed": False,
     }
 
     with pytest.raises(ValidationError):
         validate_todo(invalid_data)
 
-def test_incorrect_field_type_fails():
-    """Test that a string in the 'completed' field (instead of a boolean) fails."""
-    invalid_data = {
-            "userId": 1,
-            "id": 1,
-            "title": "delectus aut autem",
-            "completed": "false"  # This is a string, not a boolean!
-        }
-    with pytest.raises(ValidationError):
-        validate_todo(invalid_data)    
+
+def test_incorrect_field_types_fail():
+    valid_data = {
+        "userId": 1,
+        "id": 1,
+        "title": "delectus aut autem",
+        "completed": False,
+    }
+
+    invalid_values = {
+        "userId": "1",
+        "id": "1",
+        "title": 123,
+        "completed": "false",
+    }
+
+    for field, invalid_value in invalid_values.items():
+        invalid_data = valid_data.copy()
+        invalid_data[field] = invalid_value
+
+        with pytest.raises(ValidationError):
+            validate_todo(invalid_data)

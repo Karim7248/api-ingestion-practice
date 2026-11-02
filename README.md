@@ -52,3 +52,11 @@ api-ingestion-practice/
 * **What it checks:** It provisions a fresh Ubuntu server, installs all dependencies from `requirements.txt`, and runs the `pytest` suite.
 * **Why mocked tests are used:** Mocking the external API ensures the CI pipeline is fast, deterministic, and immune to network issues or third-party outages.
 * **What a failure means:** A red run indicates either broken code, missing dependencies, or a failed test, which prevents unsafe code from being merged.
+
+## Docker Integration
+
+### Local Usage
+To build and run the service locally without installing Python dependencies:
+```bash
+docker build -t api-ingestion:p2-8 .
+docker run api-ingestion:p2-8
