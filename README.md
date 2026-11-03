@@ -60,3 +60,15 @@ To build and run the service locally without installing Python dependencies:
 ```bash
 docker build -t api-ingestion:p2-8 .
 docker run api-ingestion:p2-8
+
+Configuration and Execution
+
+Environment Variables: Set TODO_API_URL to override the target endpoint, and OUTPUT_PATH to change the save location.
+
+Python Execution: Run OUTPUT_PATH=custom/path.json python3 main.py.
+
+Docker Execution: Run docker run -e OUTPUT_PATH=custom/path.json api-ingestion:p2-8.
+
+Testing: Run python3 -m pytest to execute the mocked test suite.
+
+CI Pipeline: GitHub Actions automatically verifies pytest execution and Docker build success on every push.
